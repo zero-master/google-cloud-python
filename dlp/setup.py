@@ -16,7 +16,7 @@ install_requires = [
 
 setup(
     name='google-cloud-dlp',
-    version='0.1.0',
+    version='0.15.4',
     author='Google Inc',
     author_email='googleapis-packages@google.com',
     classifiers=[
@@ -38,8 +38,5 @@ setup(
     install_requires=install_requires,
     license='Apache-2.0',
     packages=find_packages(),
-    namespace_packages=[
-        'google', 'google.cloud', 'google.cloud.gapic',
-        'google.cloud.gapic.privacy', 'google.cloud.gapic.privacy.dlp'
-    ],
+    namespace_packages=['google.cloud.proto.privacy.dlp', 'google.cloud.proto.privacy', 'google.cloud.proto', 'google.cloud', 'google'],
     url='https://github.com/googleapis/googleapis')
