@@ -33,7 +33,7 @@ from google.gax import config
 from google.gax import path_template
 import google.gax
 
-from google.cloud.gapic.language.v1beta2 import enums
+from google.cloud.language_v1beta2.gapic import enums
 from google.cloud.proto.language.v1beta2 import language_service_pb2
 
 
@@ -168,15 +168,19 @@ class LanguageServiceClient(object):
         Analyzes the sentiment of the provided text.
 
         Example:
-          >>> from google.cloud.gapic.language.v1beta2 import language_service_client
-          >>> from google.cloud.proto.language.v1beta2 import language_service_pb2
-          >>> client = language_service_client.LanguageServiceClient()
-          >>> document = language_service_pb2.Document()
+          >>> from google.cloud import language_v1beta2
+          >>>
+          >>> client = language_v1beta2.LanguageServiceClient()
+          >>>
+          >>> document = {}
+          >>>
           >>> response = client.analyze_sentiment(document)
 
         Args:
-          document (:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`): Input document.
-          encoding_type (enum :class:`google.cloud.gapic.language.v1beta2.enums.EncodingType`): The encoding type used by the API to calculate sentence offsets for the
+          document (Union[dict|:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`]): Input document.
+            If a dict is provided, it must be of the same form as the protobuf
+            message :class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`
+          encoding_type (~.enums.EncodingType): The encoding type used by the API to calculate sentence offsets for the
             sentence sentiment.
           options (:class:`google.gax.CallOptions`): Overrides the default
             settings for this call, e.g, timeout, retries etc.
@@ -199,15 +203,19 @@ class LanguageServiceClient(object):
         other properties.
 
         Example:
-          >>> from google.cloud.gapic.language.v1beta2 import language_service_client
-          >>> from google.cloud.proto.language.v1beta2 import language_service_pb2
-          >>> client = language_service_client.LanguageServiceClient()
-          >>> document = language_service_pb2.Document()
+          >>> from google.cloud import language_v1beta2
+          >>>
+          >>> client = language_v1beta2.LanguageServiceClient()
+          >>>
+          >>> document = {}
+          >>>
           >>> response = client.analyze_entities(document)
 
         Args:
-          document (:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`): Input document.
-          encoding_type (enum :class:`google.cloud.gapic.language.v1beta2.enums.EncodingType`): The encoding type used by the API to calculate offsets.
+          document (Union[dict|:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`]): Input document.
+            If a dict is provided, it must be of the same form as the protobuf
+            message :class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`
+          encoding_type (~.enums.EncodingType): The encoding type used by the API to calculate offsets.
           options (:class:`google.gax.CallOptions`): Overrides the default
             settings for this call, e.g, timeout, retries etc.
 
@@ -231,15 +239,19 @@ class LanguageServiceClient(object):
         sentiment associated with each entity and its mentions.
 
         Example:
-          >>> from google.cloud.gapic.language.v1beta2 import language_service_client
-          >>> from google.cloud.proto.language.v1beta2 import language_service_pb2
-          >>> client = language_service_client.LanguageServiceClient()
-          >>> document = language_service_pb2.Document()
+          >>> from google.cloud import language_v1beta2
+          >>>
+          >>> client = language_v1beta2.LanguageServiceClient()
+          >>>
+          >>> document = {}
+          >>>
           >>> response = client.analyze_entity_sentiment(document)
 
         Args:
-          document (:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`): Input document.
-          encoding_type (enum :class:`google.cloud.gapic.language.v1beta2.enums.EncodingType`): The encoding type used by the API to calculate offsets.
+          document (Union[dict|:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`]): Input document.
+            If a dict is provided, it must be of the same form as the protobuf
+            message :class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`
+          encoding_type (~.enums.EncodingType): The encoding type used by the API to calculate offsets.
           options (:class:`google.gax.CallOptions`): Overrides the default
             settings for this call, e.g, timeout, retries etc.
 
@@ -261,15 +273,19 @@ class LanguageServiceClient(object):
         properties.
 
         Example:
-          >>> from google.cloud.gapic.language.v1beta2 import language_service_client
-          >>> from google.cloud.proto.language.v1beta2 import language_service_pb2
-          >>> client = language_service_client.LanguageServiceClient()
-          >>> document = language_service_pb2.Document()
+          >>> from google.cloud import language_v1beta2
+          >>>
+          >>> client = language_v1beta2.LanguageServiceClient()
+          >>>
+          >>> document = {}
+          >>>
           >>> response = client.analyze_syntax(document)
 
         Args:
-          document (:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`): Input document.
-          encoding_type (enum :class:`google.cloud.gapic.language.v1beta2.enums.EncodingType`): The encoding type used by the API to calculate offsets.
+          document (Union[dict|:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`]): Input document.
+            If a dict is provided, it must be of the same form as the protobuf
+            message :class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`
+          encoding_type (~.enums.EncodingType): The encoding type used by the API to calculate offsets.
           options (:class:`google.gax.CallOptions`): Overrides the default
             settings for this call, e.g, timeout, retries etc.
 
@@ -290,21 +306,27 @@ class LanguageServiceClient(object):
                       encoding_type=None,
                       options=None):
         """
-        A convenience method that provides all syntax, sentiment, and entity
-        features in one call.
+        A convenience method that provides all syntax, sentiment, entity, and
+        classification features in one call.
 
         Example:
-          >>> from google.cloud.gapic.language.v1beta2 import language_service_client
-          >>> from google.cloud.proto.language.v1beta2 import language_service_pb2
-          >>> client = language_service_client.LanguageServiceClient()
-          >>> document = language_service_pb2.Document()
-          >>> features = language_service_pb2.AnnotateTextRequest.Features()
+          >>> from google.cloud import language_v1beta2
+          >>>
+          >>> client = language_v1beta2.LanguageServiceClient()
+          >>>
+          >>> document = {}
+          >>> features = {}
+          >>>
           >>> response = client.annotate_text(document, features)
 
         Args:
-          document (:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`): Input document.
-          features (:class:`google.cloud.proto.language.v1beta2.language_service_pb2.AnnotateTextRequest.Features`): The enabled features.
-          encoding_type (enum :class:`google.cloud.gapic.language.v1beta2.enums.EncodingType`): The encoding type used by the API to calculate offsets.
+          document (Union[dict|:class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`]): Input document.
+            If a dict is provided, it must be of the same form as the protobuf
+            message :class:`google.cloud.proto.language.v1beta2.language_service_pb2.Document`
+          features (Union[dict|:class:`google.cloud.proto.language.v1beta2.language_service_pb2.AnnotateTextRequest.Features`]): The enabled features.
+            If a dict is provided, it must be of the same form as the protobuf
+            message :class:`google.cloud.proto.language.v1beta2.language_service_pb2.AnnotateTextRequest.Features`
+          encoding_type (~.enums.EncodingType): The encoding type used by the API to calculate offsets.
           options (:class:`google.gax.CallOptions`): Overrides the default
             settings for this call, e.g, timeout, retries etc.
 
