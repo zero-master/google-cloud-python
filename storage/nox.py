@@ -68,14 +68,13 @@ def system_tests(session, python_version):
     session.virtualenv_dirname = 'sys-' + python_version
 
     # Install all test dependencies, then install this package into the
-    # virtualenv's dist-packages.
+    # virutalenv's dist-packages.
     session.install('mock', 'pytest', *LOCAL_DEPS)
     session.install('../test_utils/')
-    session.install('../pubsub')
-    session.install('-e', '.')
+    session.install('.')
 
     # Run py.test against the system tests.
-    session.run('py.test', '--quiet', 'tests/system.py', *session.posargs)
+    session.run('py.test', '--quiet', 'tests/system.py')
 
 
 @nox.session
