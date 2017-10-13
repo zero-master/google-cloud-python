@@ -678,7 +678,7 @@ class Test_Blob(unittest.TestCase):
             'GET',
             media_link,
             data=None,
-            headers={'accept-encoding': 'gzip'},
+            headers={},
             stream=True,
         )
 
