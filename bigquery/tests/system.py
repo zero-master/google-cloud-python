@@ -358,7 +358,7 @@ class TestBigQuery(unittest.TestCase):
         # 8 tries -> 1 + 2 + 4 + 8 + 16 + 32 + 64 = 127 seconds
         retry = RetryResult(_has_rows, max_tries=8)
         rows = retry(self._fetch_single_page)(table)
-        row_tuples = [r.values() for r in rows]
+        row_tuples = [tuple(r.values()) for r in rows]
         by_age = operator.itemgetter(1)
         self.assertEqual(sorted(row_tuples, key=by_age),
                          sorted(ROWS, key=by_age))
@@ -396,7 +396,7 @@ class TestBigQuery(unittest.TestCase):
         self.assertEqual(job.output_rows, len(ROWS))
 
         rows = self._fetch_single_page(table)
-        row_tuples = [r.values() for r in rows]
+        row_tuples = [tuple(r.values()) for r in rows]
         by_age = operator.itemgetter(1)
         self.assertEqual(sorted(row_tuples, key=by_age),
                          sorted(ROWS, key=by_age))
@@ -430,7 +430,7 @@ class TestBigQuery(unittest.TestCase):
 
         table = Config.CLIENT.get_table(table)
         rows = self._fetch_single_page(table)
-        row_tuples = [r.values() for r in rows]
+        row_tuples = [tuple(r.values()) for r in rows]
         by_wavelength = operator.itemgetter(1)
         self.assertEqual(sorted(row_tuples, key=by_wavelength),
                          sorted(ROWS, key=by_wavelength))
@@ -462,7 +462,7 @@ class TestBigQuery(unittest.TestCase):
         retry(job.reload)()
 
         rows = self._fetch_single_page(table)
-        row_tuples = [r.values() for r in rows]
+        row_tuples = [tuple(r.values()) for r in rows]
         by_age = operator.itemgetter(1)
         self.assertEqual(sorted(row_tuples, key=by_age),
                          sorted(ROWS, key=by_age))
@@ -500,7 +500,7 @@ class TestBigQuery(unittest.TestCase):
         self.assertEqual(table.schema, [field_name, field_age])
 
         actual_rows = self._fetch_single_page(table)
-        actual_row_tuples = [r.values() for r in actual_rows]
+        actual_row_tuples = [tuple(r.values()) for r in actual_rows]
         by_age = operator.itemgetter(1)
         self.assertEqual(
             sorted(actual_row_tuples, key=by_age), sorted(rows, key=by_age))
@@ -846,7 +846,7 @@ class TestBigQuery(unittest.TestCase):
             self.assertEqual(Config.CURSOR.rowcount, 3, "expected 3 rows")
             Config.CURSOR.arraysize = arraysize
             rows = Config.CURSOR.fetchall()
-            row_tuples = [r.values() for r in rows]
+            row_tuples = [tuple(r.values()) for r in rows]
             self.assertEqual(row_tuples, [(1, 2), (3, 4), (5, 6)])
 
     def _load_table_for_dml(self, rows, dataset_id, table_id):
@@ -1232,14 +1232,14 @@ class TestBigQuery(unittest.TestCase):
     def test_query_future(self):
         query_job = Config.CLIENT.query('SELECT 1')
         iterator = query_job.result(timeout=JOB_TIMEOUT)
-        row_tuples = [r.values() for r in iterator]
+        row_tuples = [tuple(r.values()) for r in iterator]
         self.assertEqual(row_tuples, [(1,)])
 
     def test_query_iter(self):
         import types
         query_job = Config.CLIENT.query('SELECT 1')
         self.assertIsInstance(iter(query_job), types.GeneratorType)
-        row_tuples = [r.values() for r in query_job]
+        row_tuples = [tuple(r.values()) for r in query_job]
         self.assertEqual(row_tuples, [(1,)])
 
     def test_query_table_def(self):
@@ -1258,7 +1258,7 @@ class TestBigQuery(unittest.TestCase):
 
         got_rows = Config.CLIENT.query_rows(sql, job_config=job_config)
 
-        row_tuples = [r.values() for r in got_rows]
+        row_tuples = [tuple(r.values()) for r in got_rows]
         by_age = operator.itemgetter(1)
         self.assertEqual(sorted(row_tuples, key=by_age),
                          sorted(ROWS, key=by_age))
@@ -1282,7 +1282,7 @@ class TestBigQuery(unittest.TestCase):
 
         got_rows = Config.CLIENT.query_rows(sql)
 
-        row_tuples = [r.values() for r in got_rows]
+        row_tuples = [tuple(r.values()) for r in got_rows]
         by_age = operator.itemgetter(1)
         self.assertEqual(sorted(row_tuples, key=by_age),
                          sorted(ROWS, key=by_age))
@@ -1318,7 +1318,7 @@ class TestBigQuery(unittest.TestCase):
 
         retry = RetryResult(_has_rows, max_tries=8)
         rows = retry(self._fetch_single_page)(table)
-        row_tuples = [r.values() for r in rows]
+        row_tuples = [tuple(r.values()) for r in rows]
         self.assertEqual(row_tuples, to_insert)
 
     def test_create_rows_nested_nested_dictionary(self):
@@ -1352,7 +1352,7 @@ class TestBigQuery(unittest.TestCase):
 
         retry = RetryResult(_has_rows, max_tries=8)
         rows = retry(self._fetch_single_page)(table)
-        row_tuples = [r.values() for r in rows]
+        row_tuples = [tuple(r.values()) for r in rows]
         expected_rows = [('Some value', record)]
         self.assertEqual(row_tuples, expected_rows)
 
@@ -1379,7 +1379,7 @@ class TestBigQuery(unittest.TestCase):
 
         retry = RetryResult(_has_rows, max_tries=8)
         fetched = retry(self._fetch_single_page)(table)
-        fetched_tuples = [f.values() for f in fetched]
+        fetched_tuples = [tuple(f.values()) for f in fetched]
 
         self.assertEqual(len(fetched), len(to_insert))
 
